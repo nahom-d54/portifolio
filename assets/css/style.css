@@ -59,8 +59,8 @@ a {
     justify-content: flex-end;
 }
 .hero-text {
-    font-size: 2.5rem;
-    max-width: 300px;
+    font-size: 2.6rem;
+    max-width: 350px;
 }
 .break {
     width: 100%;
@@ -191,6 +191,23 @@ footer {
     transition: display ease 1s;
 }
 
+.wave.vis {
+    width: 1.4em;
+    height: 1.4em;
+    animation: waving 0.5s;
+    display: inline-block;
+}
+@keyframes waving {
+    from {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(60deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
 @media (max-width: 615px){
     .hamburger {
         display: block;
