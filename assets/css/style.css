@@ -82,6 +82,14 @@ a {
     justify-content: space-between;
     margin: 1.5em 0;
 }
+.exp-detail {
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5em 0;
+    padding: 0 20px;
+    font-weight: 300;
+    font-size: 0.9em;
+}
 .exp h3 {
     font-size: 1.35em;
     color: rgba(0, 0, 0, 0.65);
@@ -247,4 +255,11 @@ footer {
     .contact {
         grid-template-columns: 1fr;
     }
+}
+
+
+.brand {
+    display: flex;
+    align-items: center;
+    
 }

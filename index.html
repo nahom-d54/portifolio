@@ -42,8 +42,9 @@
     <style>
         .logo {
             width: 40px;
-            height: 40px
+            height: 40px;
             object-fit: cover;
+            
         }
     </style>
 </head>
@@ -98,6 +99,10 @@
                         <h3>Student</h3>
                         <span class="tag">fulltime</span>
                     </div>
+                    <div class="exp-detail">
+                        <h3><span>🡢</span> ASTU</h3>
+                        <span class="tag">Adama</span>
+                    </div>
                     <div class="break"></div>
                 </div>
                 <div class="sbs">
@@ -105,6 +110,10 @@
 
                         <h3>Internship</h3>
                         <span class="tag">Internship</span>
+                    </div>
+                    <div class="exp-detail">
+                        <h3><span>🡢</span> Addis Software</h3>
+                        <span class="tag">Addis Abeba</span>
                     </div>
                     <div class="break"></div>
                 </div>
@@ -142,26 +151,6 @@
         <div class="projects" id="projects">
             <h1>Projects</h1>
             <div class="projects-grid stacks">
-                
-                <div class="card">
-                    <img src="/assets/img/logos/python.png" alt="">
-                    <div class="body">
-                        <h3>Project title</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et assumenda officia placeat incidunt itaque in quibusdam, </p>
-                        <p><strong>Tech Stack </strong>: HTML/CSS, JavaScript</p>
-                        <div class="preview">
-                            <div class="div">
-                                <i class="fas fa-link"></i>
-                                <a href="#">Link Preview</a>
-                            </div>
-                            <div>
-                                <i class="fab fa-github"></i>
-                                <a href="#">view Code</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
             </div>
         </div>
         <div class="contact" id="contact">
@@ -172,7 +161,7 @@
             </div>
             <div class="contacts">
                 <p><i class="fas fa-at" style="margin-right: 5px;"></i><a href="mailto:nahom@nahom.eu.org">Nahom@nahom.eu.org</a></p>
-                <p><i class="fas fa-mobile" style="margin-right: 5px;"></i></i><a href="tel:+251703854594">+251703854594</a> </p>
+                <p><i class="fas fa-mobile" style="margin-right: 5px;"></i></i><a href="tel:+251703854594">+251987215131</a> </p>
                 <div class="socials">
                     <div class="github">
                         <i class="fab fa-github"></i><a href="https://github.com/nahom-d54">Github</a>
@@ -191,32 +180,32 @@
         Made in 🇪🇹 by @Nahom_d54
     </footer>
     <script src="/assets/js/main.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
+document.addEventListener("DOMContentLoaded", function() {
   // Add smooth scrolling to all links
-  $("a").on('click', function(event) {
+  document.querySelectorAll("a").forEach(function(anchor) {
+    anchor.addEventListener('click', function(event) {
+      if (this.hash !== "") {
+        event.preventDefault();
 
-    // Make sure this.hash has a value before overriding default behavior
-    if (this.hash !== "") {
-      // Prevent default anchor click behavior
-      event.preventDefault();
+        var hash = this.hash;
 
-      // Store hash
-      var hash = this.hash;
+        var targetElement = document.querySelector(hash);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop,
+            behavior: "smooth"
+          });
 
-      // Using jQuery's animate() method to add smooth page scroll
-      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-      $('html, body').animate({
-        scrollTop: $(hash).offset().top
-      }, 800, function(){
-
-        // Add hash (#) to URL when done scrolling (default click behavior)
-        window.location.hash = hash;
-      });
-    } // End if
+          window.setTimeout(function() {
+            window.location.hash = hash;
+          }, 800);
+        }
+      }
+    });
   });
 });
+
 </script>
 </body>
 </html>
