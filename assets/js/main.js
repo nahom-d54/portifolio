@@ -25,7 +25,7 @@ for(let repo of repos){
         const elm = document.createElement('div')
         elm.classList.add('card')
         let pj = `
-                    <img src="/assets/img/logos/${res.language}.png" alt="">
+                    <img src="/assets/img/logos/${res.language.toLowerCase()}.png" alt="">
                     <div class="body">
                         <h3>${res.name}</h3>
                         <p>${res.description}</p>
