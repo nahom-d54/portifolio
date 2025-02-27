@@ -21,7 +21,7 @@ export default function AboutPage() {
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
           <div className="relative w-full aspect-square overflow-hidden rounded-lg">
             <Image
-              src="https://sjc.microlink.io/TgoEkxx90gyUnsbQ-PBQuTcuaLo88uKsiSmn-jWrhxSN_qi112f6OGYNJLUE1GYiumkW9LZQIBuyoJwUgtLXhA.jpeg"
+              src="/profile.jpg"
               alt="Profile Photo"
               width={600}
               height={600}
