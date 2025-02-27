@@ -1,2 +1,0 @@
-# portifolio
-Static Prortifolio site
