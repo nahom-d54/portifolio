@@ -11,7 +11,14 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Nahom Dereje - Developer Portfolio",
   description: "A modern developer portfolio showcasing Nahom Dereje's skills and projects",
-    generator: 'v0.dev'
+  icons: {
+    icon: [
+      {
+        url: "/logo.webp",
+        rel: "icon",
+      },
+    ],
+  }
 }
 
 export default function RootLayout({
