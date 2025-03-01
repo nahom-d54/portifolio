@@ -4,10 +4,63 @@ import { motion } from "framer-motion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
-import { ChartContainer, ChartLegend, ChartRadar } from "@/components/ui/chart"
+// import { ChartContainer, ChartLegend, ChartRadar } from "@/components/ui/chart"
+import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts"
 import { VscVscodeInsiders } from "react-icons/vsc";
 import { FaChrome, FaFigma, FaGithub, FaNpm, FaTerminal } from "react-icons/fa"
 import { SiBabel, SiEslint, SiPostman, SiPrettier, SiVercel, SiWebpack } from "react-icons/si";
+
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
+
+const chartData = [
+  {
+    subject: "Frontend",
+    A: 90,
+    fullMark: 100,
+  },
+  {
+    subject: "Backend",
+    A: 75,
+    fullMark: 100,
+  },
+  {
+    subject: "Design",
+    A: 70,
+    fullMark: 100,
+  },
+  {
+    subject: "DevOps",
+    A: 65,
+    fullMark: 100,
+  },
+  {
+    subject: "Testing",
+    A: 75,
+    fullMark: 100,
+  },
+  {
+    subject: "Mobile",
+    A: 60,
+    fullMark: 100,
+  },
+]
+
+const chartConfig = {
+  A: {
+    label: "Skill Level",
+    color: "hsl(var(--chart-1))",
+  },
+  fullMark: {
+    label: "Maximum",
+    color: "hsl(var(--chart-2))",
+  },
+} satisfies ChartConfig
+
 
 export default function SkillsPage() {
   // Frontend skills data
@@ -47,38 +100,6 @@ export default function SkillsPage() {
   ]
 
   // Radar chart data
-  const radarData = [
-    {
-      subject: "Frontend",
-      A: 90,
-      fullMark: 100,
-    },
-    {
-      subject: "Backend",
-      A: 75,
-      fullMark: 100,
-    },
-    {
-      subject: "Design",
-      A: 70,
-      fullMark: 100,
-    },
-    {
-      subject: "DevOps",
-      A: 65,
-      fullMark: 100,
-    },
-    {
-      subject: "Testing",
-      A: 75,
-      fullMark: 100,
-    },
-    {
-      subject: "Mobile",
-      A: 60,
-      fullMark: 100,
-    },
-  ]
 
   return (
     <div className="container py-12">
@@ -98,8 +119,9 @@ export default function SkillsPage() {
           </CardHeader>
           <CardContent className="flex justify-center">
             <div className="w-full max-w-md h-[400px]">
-              <ChartContainer>
+              {/* <ChartContainer>
                 <ChartRadar
+                
                   data={radarData}
                   dataKey="A"
                   stroke="hsl(var(--primary))"
@@ -107,7 +129,34 @@ export default function SkillsPage() {
                   fillOpacity={0.3}
                 />
                 <ChartLegend />
-              </ChartContainer>
+              </ChartContainer> */}
+              <ChartContainer
+              config={chartConfig}
+              className="mx-auto aspect-square max-h-[350px]"
+            >
+              <RadarChart data={chartData}>
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent indicator="line" />}
+                />
+                <PolarAngleAxis dataKey="subject" />
+                <PolarGrid radialLines={false} />
+                <Radar
+                  dataKey="A"
+                  fill="hsl(var(--chart-1))"
+                  fillOpacity={0}
+                  stroke="#E14F5A"
+                  strokeWidth={2}
+                />
+                <Radar
+                  dataKey="fullMark"
+                  fill="hsl(var(--chart-2))"
+                  fillOpacity={0}
+                  stroke="hsl(var(--primary))"
+                  strokeWidth={2}
+                />
+              </RadarChart>
+        </ChartContainer>
             </div>
           </CardContent>
         </Card>

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { Github, Linkedin, Mail, MapPin, Globe } from "lucide-react"
+import { Github, Linkedin, Mail, MapPin, Globe, Phone } from "lucide-react"
 import { toast } from "@/components/ui/use-toast"
 import { Toaster } from "@/components/ui/toaster"
 
@@ -152,6 +152,14 @@ export default function ContactPage() {
               </div>
 
               <div className="flex items-start gap-4">
+                <Phone className="h-5 w-5 text-primary mt-1" />
+                <div>
+                  <h3 className="font-medium">Phone</h3>
+                  <p className="text-muted-foreground">+251987215131</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
                 <Globe className="h-5 w-5 text-primary mt-1" />
                 <div>
                   <h3 className="font-medium">Website</h3>
@@ -201,6 +209,17 @@ export default function ContactPage() {
                 <Globe className="h-8 w-8 mb-2" />
                 <span className="text-sm font-medium">Website</span>
               </a>
+
+              <a
+                 href="tel:+251987215131"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center justify-center p-4 rounded-lg border hover:bg-muted transition-colors"
+              >
+                <Phone className="h-8 w-8 mb-2" />
+                <span className="text-sm font-medium">Phone</span>
+              </a>
+              
             </div>
           </div>
         </motion.div>
