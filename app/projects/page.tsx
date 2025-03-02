@@ -16,7 +16,7 @@ const projects = [
     description:
       "A full-featured e-commerce platform with product management, cart functionality, and payment processing.",
     image: "/placeholder.svg?height=400&width=600",
-    tags: ["React", "Next.js", "Stripe", "MongoDB"],
+    tags: ["React", "Next.js", "Chapa", "MongoDB"],
     github: "#",
     demo: "https://pipihabesha.nahom.eu.org/",
     featured: true,
