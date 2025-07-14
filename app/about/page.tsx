@@ -1,7 +1,5 @@
-import dynamic from "next/dynamic";
 import { getJourney, getPassions } from "@/actions/aboutActions";
-
-const AboutClient = dynamic(() => import("./AboutClient"), { ssr: false });
+import AboutClient from "./AboutClient";
 
 export default async function AboutPage() {
   const passions = await getPassions();
