@@ -13,17 +13,15 @@ const projectSchema = z.object({
   tags: z.array(z.string()).nonempty("At least one tag is required"),
   github: z
     .string()
-    .url()
     .max(255, "GitHub URL is too long")
     .min(1, "GitHub URL is required"),
   demo: z
     .string()
-    .url()
     .min(1, "Demo URL is required")
     .max(255, "Demo URL is too long"),
   featured: z.boolean({ required_error: "Featured status is required" }),
   category: z.enum(categories, { required_error: "Category is required" }),
-  image: z.string().url().max(255, "Image URL is too long"),
+  image: z.string().max(255, "Image URL is too long"),
 });
 
 export const GET = async (request: NextRequest) => {

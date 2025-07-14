@@ -65,13 +65,27 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { categories } from "@/lib/constants/category";
 
+const relativeOrAbsoluteUrl = z.string().refine(
+  (value) => {
+    try {
+      // If it throws, it's invalid
+      new URL(value, "http://placeholder.local"); // base allows relative parsing
+      return true;
+    } catch {
+      return false;
+    }
+  },
+  {
+    message: "Must be a valid URL (relative or absolute)",
+  }
+);
 const projectSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
-  image: z.string().url("Image must be a valid URL"),
+  image: z.string().default("/placeholder.svg?height=400&width=600"),
   tags: z.array(z.string()).min(1, "At least one tag is required"),
-  github: z.string().url("GitHub URL must be valid").default("#"),
-  demo: z.string().url("Demo URL must be valid").default("#"),
+  github: z.string().default("#"),
+  demo: z.string().default("#"),
   featured: z.boolean(),
   category: z.enum(categories),
 });
