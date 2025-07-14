@@ -30,8 +30,8 @@ export const GET = async (request: NextRequest) => {
   });
 
   try {
-    const journeyData = await db.select().from(projects);
-    return NextResponse.json(journeyData);
+    const projectData = await db.select().from(projects);
+    return NextResponse.json(projectData);
   } catch (error) {
     console.error("Error fetching projects:", error);
     return NextResponse.json(

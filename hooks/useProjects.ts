@@ -72,10 +72,20 @@ const toggleProjectFeatured = async (id: ProjectType["id"]) => {
   return data;
 };
 
+const featuredProjects = async () => {
+  const response = await fetch("/api/projects/featured", {
+    credentials: "include",
+  });
+  const data = (await response.json()) as ProjectType[];
+
+  return data;
+};
+
 export {
   createProject,
   getProject,
   updataProject,
   deleteProject,
   toggleProjectFeatured,
+  featuredProjects,
 };

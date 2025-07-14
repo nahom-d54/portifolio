@@ -1,14 +1,13 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
 import {
   FaArrowRight,
   FaExternalLinkAlt,
   FaGithub,
-
   FaTerminal,
   FaGitAlt,
   FaPython,
@@ -17,33 +16,39 @@ import {
   FaHtml5,
   FaCss3,
   FaNodeJs,
-
-} from "react-icons/fa"
+} from "react-icons/fa";
 import { SiDjango } from "react-icons/si";
 import { DiRedis } from "react-icons/di";
 import { BiLogoPostgresql } from "react-icons/bi";
 
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { featuredProjects } from "@/hooks/useProjects";
 
 export default function Home() {
-  const [text, setText] = useState("")
+  const [text, setText] = useState("");
   const fullText =
-    "const developer = {\n  name: 'Nahom Dereje',\n  skills: ['Python', 'React', 'HTML/CSS'],\n  passion: 'Building innovative web solutions'\n};"
-  const [index, setIndex] = useState(0)
+    "const developer = {\n  name: 'Nahom Dereje',\n  skills: ['Python', 'React', 'HTML/CSS'],\n  passion: 'Building innovative web solutions'\n};";
+  const [index, setIndex] = useState(0);
+
+  const { data: featuredProjectsList } = useQuery({
+    queryKey: ["featuredProjects"],
+    queryFn: featuredProjects,
+  });
 
   useEffect(() => {
     if (index < fullText.length) {
       const timeout = setTimeout(() => {
-        setText((prev) => prev + fullText.charAt(index))
-        setIndex(index + 1)
-      }, 50)
-      return () => clearTimeout(timeout)
+        setText((prev) => prev + fullText.charAt(index));
+        setIndex(index + 1);
+      }, 50);
+      return () => clearTimeout(timeout);
     }
-  }, [index])
+  }, [index]);
 
-  const { scrollYProgress } = useScroll()
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8])
+  const { scrollYProgress } = useScroll();
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
 
   return (
     <div className="flex flex-col gap-20 pb-8">
@@ -53,7 +58,11 @@ export default function Home() {
         style={{ opacity, scale }}
       >
         <div className="flex-1 space-y-6">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
               Hi, I'm <span className="text-primary">Nahom Dereje</span>
             </h1>
@@ -75,7 +84,8 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <p className="text-lg text-muted-foreground">
-              An impassioned developer hailing from Ethiopia, building innovative web solutions.
+              An impassioned developer hailing from Ethiopia, building
+              innovative web solutions.
             </p>
           </motion.div>
 
@@ -108,14 +118,24 @@ export default function Home() {
                   dangerouslySetInnerHTML={{
                     __html: line
                       // .replace(/\b(const|let|var)\b/g, '<span class="keyword">$&</span>')
-                      .replace(/\b(function|return|if|else)\b/g, '<span class="keyword">$&</span>')
-                      .replace(/(['"].*?['"])/g, '<span class="string">$&</span>')
-                      .replace(/(\b\w+\b):/g, '<span class="variable">$&</span>'),
+                      .replace(
+                        /\b(function|return|if|else)\b/g,
+                        '<span class="keyword">$&</span>'
+                      )
+                      .replace(
+                        /(['"].*?['"])/g,
+                        '<span class="string">$&</span>'
+                      )
+                      .replace(
+                        /(\b\w+\b):/g,
+                        '<span class="variable">$&</span>'
+                      ),
                   }}
                 />
-                {i === text.split("\n").length - 1 && text.length === fullText.length && (
-                  <span className="cursor"></span>
-                )}
+                {i === text.split("\n").length - 1 &&
+                  text.length === fullText.length && (
+                    <span className="cursor"></span>
+                  )}
               </div>
             ))}
           </div>
@@ -131,8 +151,12 @@ export default function Home() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl font-bold tracking-tight text-foreground">Featured Projects</h2>
-          <p className="text-muted-foreground">Check out some of my recent work</p>
+          <h2 className="text-3xl font-bold tracking-tight text-foreground">
+            Featured Projects
+          </h2>
+          <p className="text-muted-foreground">
+            Check out some of my recent work
+          </p>
         </motion.div>
 
         <motion.div
@@ -142,9 +166,9 @@ export default function Home() {
           viewport={{ once: true }}
           transition={{ staggerChildren: 0.1 }}
         >
-          {[1, 2, 3].map((project) => (
+          {featuredProjectsList?.map((project) => (
             <motion.div
-              key={project}
+              key={project.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -161,30 +185,45 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-5">
-                  <h3 className="text-xl font-semibold">Project Title {project}</h3>
+                  <h3 className="text-xl font-semibold">{project.title}</h3>
                   <p className="mt-2 text-muted-foreground">
-                    A brief description of this amazing project and the technologies used to build it.
+                    {project.description}
                   </p>
                   <div className="mt-4 flex flex-wrap gap-2">
-                    <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold">
-                      Python
-                    </span>
-                    <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold">
-                      React
-                    </span>
-                    <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold">
-                      Django
-                    </span>
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-block bg-muted px-3 py-1 text-sm rounded-full text-muted-foreground"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                   <div className="mt-4 flex items-center gap-4">
-                    <Button asChild variant="outline" size="sm" className="hover-glow">
-                      <Link href="https://github.com/nahom-d54" className="inline-flex items-center gap-1">
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="sm"
+                      className="hover-glow"
+                    >
+                      <Link
+                        href={project.github}
+                        className="inline-flex items-center gap-1"
+                      >
                         <FaGithub className="h-4 w-4" />
                         Code
                       </Link>
                     </Button>
-                    <Button asChild variant="outline" size="sm" className="hover-glow">
-                      <Link href="#" className="inline-flex items-center gap-1">
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="sm"
+                      className="hover-glow"
+                    >
+                      <Link
+                        href={project.demo}
+                        className="inline-flex items-center gap-1"
+                      >
                         <FaExternalLinkAlt className="h-4 w-4" />
                         Demo
                       </Link>
@@ -215,24 +254,54 @@ export default function Home() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl font-bold tracking-tight text-foreground">Skills & Technologies</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-foreground">
+            Skills & Technologies
+          </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            I work with a variety of technologies to create responsive and performant web applications
+            I work with a variety of technologies to create responsive and
+            performant web applications
           </p>
         </motion.div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 mt-8 p-4">
           {[
-            { name: "Python", icon: <FaPython className="w-8 h-8 "  /> },
-            { name: "JavaScript", icon: <FaJs className="w-8 h-8 text-yellow-300" /> },
-            { name: "React", icon: <FaReact className="w-8 h-8 text-[#61DBFB]" /> },
-            { name: "HTML", icon: <FaHtml5 className="w-8 h-8 text-[#E34C26]" /> },
-            { name: "CSS", icon: <FaCss3 className="w-8 h-8 text-[#2965f1]" /> },
-            { name: "Django", icon: <SiDjango className="w-8 h-8 text-[#092e20]" /> },
-            { name: "Git", icon: <FaGitAlt className="w-8 h-8 text-[#f1502f]" /> },
-            { name: "Node.js", icon: <FaNodeJs className="w-8 h-8 text-[#68a063]" /> },
-            { name: "PostgreSQL", icon: <BiLogoPostgresql className="w-8 h-8 text-[#0064a5]" /> },
-            { name: "Redis", icon: <DiRedis className="w-8 h-8 text-[#d82c20]" /> },
+            { name: "Python", icon: <FaPython className="w-8 h-8 " /> },
+            {
+              name: "JavaScript",
+              icon: <FaJs className="w-8 h-8 text-yellow-300" />,
+            },
+            {
+              name: "React",
+              icon: <FaReact className="w-8 h-8 text-[#61DBFB]" />,
+            },
+            {
+              name: "HTML",
+              icon: <FaHtml5 className="w-8 h-8 text-[#E34C26]" />,
+            },
+            {
+              name: "CSS",
+              icon: <FaCss3 className="w-8 h-8 text-[#2965f1]" />,
+            },
+            {
+              name: "Django",
+              icon: <SiDjango className="w-8 h-8 text-[#092e20]" />,
+            },
+            {
+              name: "Git",
+              icon: <FaGitAlt className="w-8 h-8 text-[#f1502f]" />,
+            },
+            {
+              name: "Node.js",
+              icon: <FaNodeJs className="w-8 h-8 text-[#68a063]" />,
+            },
+            {
+              name: "PostgreSQL",
+              icon: <BiLogoPostgresql className="w-8 h-8 text-[#0064a5]" />,
+            },
+            {
+              name: "Redis",
+              icon: <DiRedis className="w-8 h-8 text-[#d82c20]" />,
+            },
             // { name: "Docker", icon: <FaDocker className="w-8 h-8" /> },
             { name: "Linux", icon: <FaTerminal className="w-8 h-8" /> },
           ].map((skill, index) => (
@@ -261,18 +330,25 @@ export default function Home() {
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 p-10">
             <div className="space-y-4">
-              <h2 className="text-3xl font-bold tracking-tight text-foreground">Ready to work together?</h2>
+              <h2 className="text-3xl font-bold tracking-tight text-foreground">
+                Ready to work together?
+              </h2>
               <p className="text-foreground/80 max-w-md">
-                I'm currently available for freelance work and open to new opportunities.
+                I'm currently available for freelance work and open to new
+                opportunities.
               </p>
             </div>
-            <Button asChild size="lg" variant="highlight" className="glow hover-glow">
+            <Button
+              asChild
+              size="lg"
+              variant="highlight"
+              className="glow hover-glow"
+            >
               <Link href="/contact">Get in Touch</Link>
             </Button>
           </div>
         </motion.div>
       </section>
     </div>
-  )
+  );
 }
-
